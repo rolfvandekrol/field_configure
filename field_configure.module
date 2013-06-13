@@ -1,0 +1,28 @@
+<?php
+
+function field_configure_field($field) {
+  // If a field type we know should exist isn't found, clear the Field cache.
+  if (!field_info_field_types($field['type'])) { field_cache_clear(); }
+
+  $field = array_merge(array(
+    'locked' => TRUE,
+  ), $field);
+
+  $existing_field = field_info_field($field['field_name']);
+  if (empty($existing_field)) {
+    $field = field_create_field($field);
+  } else {
+    $field = array_merge($existing_field, $field);
+    field_update_field($field);
+  }
+}
+
+function field_configure_instance($instance) {
+  $existing_instance = field_info_instance($instance['entity_type'], $instance['field_name'], $instance['bundle']);
+  if (empty($existing_instance)) {
+    $instance = field_create_instance($instance);
+  } else {
+    $instance = array_merge($existing_instance, $instance);
+    field_update_instance($instance);
+  }
+}
