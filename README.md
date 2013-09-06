@@ -2,7 +2,7 @@
 
 Field Configure is a Drupal module that provides helpers to create fields and instances of fields from code. This makes it possible to define fields using Kraftwagen Manifests, instead of using Features.
 
-# Usage
+## Usage
 
 ```php
 $field = array(
